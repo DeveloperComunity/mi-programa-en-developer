@@ -1,0 +1,62 @@
+unit PARTIDOS;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, ComCtrls, Buttons;
+
+type
+  TForm1 = class(TForm)
+    ESTADISTICA: TBitBtn;
+    CERRAR: TBitBtn;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    SOLUCION: TListView;
+    procedure ESTADISTICAClick(Sender: TObject);
+    procedure CERRARClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.DFM}
+
+procedure TForm1.ESTADISTICAClick(Sender: TObject);
+CONST    // DEFINE VALORES FIJOS
+    PARTIDOS:ARRAY[1..10] OF INTEGER=(25,20,17,15,13,10,9,7,6,4);
+    EQUIPOS:ARRAY[1..10] OF STRING[15]=('R. MADRID','CÁDIZ','AT. MADRID',
+         'HÉRCULES','R. SOCIEDAD','BETIS','BARCELONA','ALMERIA','SPORTING',
+         'MALAGA');
+VAR      // DEFINE VALORES VARIABLES
+   I,K:INTEGER;
+   VICTOR:STRING;
+begin
+   FOR I:=1 TO 10 DO    // 10 EQUIPOS
+     BEGIN
+        VICTOR:='';   // CONTENDRÁ LA LISTA DE ASTERISCOS
+        FOR K:=1 TO PARTIDOS[I] DO
+            VICTOR:=VICTOR+'¤';
+        WITH SOLUCION.ITEMS.ADD DO   //<--"CON CADA FILA..."
+           BEGIN
+              SUBITEMS.ADD(EQUIPOS[I]);
+              SUBITEMS.ADD(VICTOR);
+           END;
+     END;
+     SOLUCION.VISIBLE:=TRUE;
+end;
+
+procedure TForm1.CERRARClick(Sender: TObject);
+begin
+     CLOSE;
+end;
+
+end.
+
+
